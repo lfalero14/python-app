@@ -7,5 +7,5 @@ spec:
     app: python-app
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 5000
+      port: 8080 #Service
+      targetPort: 5000 #POD
