@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: docker.io/lfalero14/python-app
   pullPolicy: IfNotPresent
-  tag: f7bb67
+  tag: 9b2dc5
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
