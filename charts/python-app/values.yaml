@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: quay.io/rh_ee_lfalero/python-app
   pullPolicy: IfNotPresent
-  tag: 1.0.0
+  tag: f7bb67
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
