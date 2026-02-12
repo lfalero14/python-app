@@ -45,7 +45,7 @@ jobs:
         shell: bash
         run: |
           echo ${{needs.ci.outputs.commit_id}}
-          yq -Yi '.image.tag = "${{needs.ci.outputs.commit_id}}"' charts/python-app/values.yaml
+          yq e '.image.tag = "${{needs.ci.outputs.commit_id}}"' -i charts/python-app/values.yaml
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
