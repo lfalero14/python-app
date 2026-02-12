@@ -33,12 +33,13 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-        
+
       - name: Install yq
         shell: bash
         run: |
-          sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
-          sudo chmod +x /usr/local/bin/yq
+          curl -ksSL -o yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          chmod +x yq
+          sudo mv ./yq /usr/local/bin/yq
 
       - name: Modify values file
         shell: bash
