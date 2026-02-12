@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  repository: quay.io/rh_ee_lfalero/python-app
+  repository: docker.io/lfalero14/python-app
   pullPolicy: IfNotPresent
   tag: f7bb67
 imagePullSecrets: []
