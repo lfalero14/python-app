@@ -37,9 +37,8 @@ jobs:
       # - name: Install yq
       #   shell: bash
       #   run: |
-      #     curl -ksSL -o yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
-      #     chmod +x yq
-      #     sudo mv ./yq /usr/local/bin/yq
+          # sudo curl -ksSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.52.2/yq_linux_amd64
+          # sudo chmod +x /usr/local/bin/yq
 
       # - name: Modify values file
       #   shell: bash
@@ -55,14 +54,13 @@ jobs:
       - name: Install argocd
         shell: bash
         run: |
-          curl -ksSL -o argocd https://github.com/argoproj/argo-cd/releases/download/v3.3.0/argocd-linux-amd64
-          chmod +x argocd
-          sudo mv ./argocd /usr/local/bin/argocd
+          sudo curl -ksSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/v3.3.0/argocd-linux-amd64
+          sudo chmod +x /usr/local/bin/argocd
 
       - name: Argocd app sync
         shell: bash
         run: |
-          argocd login argocd-server.argocd.svc.cluster.local \  
+          argocd login argocd-server.argocd.svc.cluster.local \
             --insecure  \
             --grpc-web \
             --username admin \
