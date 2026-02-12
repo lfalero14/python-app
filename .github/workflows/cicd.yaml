@@ -8,48 +8,51 @@ on:
       - main
 
 jobs:
-  # ci:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Shorten commit id
-  #       shell: bash
-  #       run: |
-  #         echo "COMMIT_ID=${GITHUB_SHA::6}" >> "$GITHUB_ENV"
-  #     - name: Login to Docker Hub
-  #       uses: docker/login-action@v3
-  #       with:
-  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
-  #     - name: Build and push
-  #       uses: docker/build-push-action@v6
-  #       with:
-  #         push: true
-  #         tags: lfalero14/python-app:${{ env.COMMIT_ID }}
-  #   outputs:
-  #     commit_id: ${{ env.COMMIT_ID }}
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Shorten commit id
+        shell: bash
+        run: |
+          echo "COMMIT_ID=${GITHUB_SHA::6}" >> "$GITHUB_ENV"
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: lfalero14/python-app:${{ env.COMMIT_ID }}
+
+    outputs:
+      commit_id: ${{ env.COMMIT_ID }}
 
   cd:
-    # needs: ci
+    needs: ci
     runs-on: self-hosted
     steps:
-      # - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      # - name: Install yq
-      #   shell: bash
-      #   run: |
-          # sudo curl -ksSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.52.2/yq_linux_amd64
-          # sudo chmod +x /usr/local/bin/yq
+      - name: Install yq
+        shell: bash
+        run: |
+          sudo curl -ksSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.52.2/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
 
-      # - name: Modify values file
-      #   shell: bash
-      #   run: |
-      #     echo ${{needs.ci.outputs.commit_id}}
-      #     yq e '.image.tag = "${{needs.ci.outputs.commit_id}}"' -i charts/python-app/values.yaml
+      - name: Modify values file
+        shell: bash
+        run: |
+          echo ${{needs.ci.outputs.commit_id}}
+          yq e '.image.tag = "${{needs.ci.outputs.commit_id}}"' -i charts/python-app/values.yaml
 
-      # - name: Commit changes
-      #   uses: EndBug/add-and-commit@v9
-      #   with:
-      #     message: "Updates values.yaml with commit ${{needs.ci.outputs.commit_id}}"
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Updates values.yaml with commit ${{needs.ci.outputs.commit_id}}"
 
       - name: Install argocd
         shell: bash
