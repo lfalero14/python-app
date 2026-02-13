@@ -1,12 +1,13 @@
-site_name: "python-app"
-site_description: "Main documentation for the python-app"
+site_name: python-app
+site_description: Main documentation for the python-app
 repo_url: https://github.com/lfalero14/python-app
-edit_uri: edit/main/docs # edit/<branch>/docs
+edit_uri: edit/main/docs
 
 plugins:
   - techdocs-core
 
-# For sidebar navigation on https://backstage.io/, see `microsite/sidebars.json`
+docs_dir: docs
+
 nav:
   - Overview:
-      - Getting started: "docs/index.md"
+      - Getting started: index.md
